@@ -1,4 +1,4 @@
-# KRAM 
+# KRAM - EducateHacks 2024
 KRAM is a study tool designed to help students generate practice problems based on concepts they're learning in class. Users are able to upload pictures of homework sheets and practice problems, and KRAM uses AI to create similar problems.
 
 ## Technologies
