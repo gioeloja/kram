@@ -46,7 +46,7 @@ async function runChatWithInput(userInput) {
     history: [
       {
         role: "user",
-        parts: [{ text: "You will be given text translated from an image of a worksheet. Your job is to determine what is being learned and return new questions of the same type of question. MAKE SURE THE ANSWER IS RIGHT, AND NO 'ALL OF THE ABOVE'!!! MUST BE this format: { \"question\": \"{question}\",\"answer1\": \"ans1\", \"answer2\": \"ans2\", \"answer3\": \"ans3\", \"answer4\": \"ans4\", \"correct\": {NO  square brackets!!!! int for correct answer index in array }}, { \"question\": \"{question}\",\"answer1\": etc etc"}],
+        parts: [{ text: "You will be given text translated from an image of a worksheet. Your job is to determine what is being learned and return new questions of the same type of question. MAKE SURE THERE IS ONLY ONE CORRECT ANSWER. MAKE SURE THE ANSWER IS RIGHT, AND NO 'ALL OF THE ABOVE'!!! MUST BE this format: { \"question\": \"{question}\",\"answer1\": \"ans1\", \"answer2\": \"ans2\", \"answer3\": \"ans3\", \"answer4\": \"ans4\", \"correct\": {NO  square brackets!!!! int for correct answer index in array }}, { \"question\": \"{question}\",\"answer1\": etc etc"}],
       },
       {
         role: "model",

@@ -1,6 +1,7 @@
-// ImgProcessing.js
+import {VISION_API_KEY} from "@env"
+
 const callVisionApi = async (imageBase64) => {
-  const apiKey = 'AIzaSyBqBuq1aMQLvEJ6sVqd4VfhWIg903gmoLg'; // Use a secure way to store and use this
+  const apiKey = VISION_API_KEY;
   const url = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
  
   const base64Formatted = imageBase64.replace(/^data:image\/[a-z]+;base64,/, '');

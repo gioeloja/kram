@@ -3,6 +3,7 @@ import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { updateChecked, updateSelected } from '../firestore';
 import { auth } from '../firebase';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Question = ({ navigation, route }) => {
   const { currentIndex, collIndex, selected, questions, checked  } = route.params;
@@ -90,79 +91,82 @@ const Question = ({ navigation, route }) => {
   };
 
   return (
-    <View className='flex-col h-full'>
-      <View className='h-1/6 items-center justify-center'>
-        <Text className='p-6 font-bold text-xl'>{data.question}</Text>
-      </View>
-      <View className='h-1/2'>
-        <View className="flex-1 justify-between space-y-5 p-5 shadow-lg">
-          <TouchableOpacity
-            className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 1 ? 'bg-green-400' : selectedAnswer === 1 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 1 ? 'bg-red-400' : ''}`}
-            onPress={() => handleAnswerSelection(1)}
-            disabled={isAnswerChecked}
-          >
-            <Text>{data.answer1}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 2 ? 'bg-green-400' : selectedAnswer === 2 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 2 ? 'bg-red-400' : ''}`}
-            onPress={() => handleAnswerSelection(2)}
-            disabled={isAnswerChecked}
-          >
-            <Text>{data.answer2}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 3 ? 'bg-green-400' : selectedAnswer === 3 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 3 ? 'bg-red-400' : ''}`}
-            onPress={() => handleAnswerSelection(3)}
-            disabled={isAnswerChecked}
-          >
-            <Text>{data.answer3}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 4 ? 'bg-green-400' : selectedAnswer === 4 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 4 ? 'bg-red-400' : ''}`}
-            onPress={() => handleAnswerSelection(4)}
-            disabled={isAnswerChecked}
-          >
-            <Text>{data.answer4}</Text>
-          </TouchableOpacity>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View className='flex-1 flex-col h-full'>
+        <View className='items-center justify-center min-h-[100px] max-h-[180px]'>
+          <Text className='p-6 font-bold text-xl' style={{ fontWeight: 'bold', fontSize: 20 }} numberOfLines={5} ellipsizeMode='tail'>{data.question}</Text>
+        </View>
+        <View className='h-1/2'>
+          <View className="flex-1 justify-between space-y-5 p-5 shadow-lg">
+            <TouchableOpacity
+              className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 1 ? 'bg-green-400' : selectedAnswer === 1 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 1 ? 'bg-red-400' : ''}`}
+              onPress={() => handleAnswerSelection(1)}
+              disabled={isAnswerChecked}
+            >
+              <Text>{data.answer1}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 2 ? 'bg-green-400' : selectedAnswer === 2 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 2 ? 'bg-red-400' : ''}`}
+              onPress={() => handleAnswerSelection(2)}
+              disabled={isAnswerChecked}
+            >
+              <Text>{data.answer2}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 3 ? 'bg-green-400' : selectedAnswer === 3 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 3 ? 'bg-red-400' : ''}`}
+              onPress={() => handleAnswerSelection(3)}
+              disabled={isAnswerChecked}
+            >
+              <Text>{data.answer3}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className={`flex-1 justify-center items-center rounded-2xl bg-white ${isAnswerChecked && data.correct === 4 ? 'bg-green-400' : selectedAnswer === 4 && !isAnswerChecked ? 'bg-gray-300' : selectedAnswer === 4 ? 'bg-red-400' : ''}`}
+              onPress={() => handleAnswerSelection(4)}
+              disabled={isAnswerChecked}
+            >
+              <Text>{data.answer4}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        
+          <View className='w-full items-center justify-center p-5 h-[70px]'>
+          {!isAnswerChecked ? (
+            <View className='bg-blue-500 flex items-center justify-center rounded-full w-1/2 shadow-xl h-[50px]'>
+              <Button
+                title="Check Answer"
+                color="#ffffff"
+                onPress={handleCheckAnswer}
+              />
+            </View>
+          ) : (
+            <View className='bg-red-400 flex items-center justify-center rounded-full w-1/2 shadow-xl h-[50px]'>
+              <Button
+                title="Reset"
+                color="#ffffff"
+                onPress={resetAnswers}
+              />
+            </View>
+          )}
+          </View>
+        <View className='flex-row justify-between p-5'>
+        <View>
+          {currentIndex > 0 && (
+            <TouchableOpacity onPress={goToPreviousQuestion}>
+              <Ionicons name="arrow-back" size={32} color="#374151" />
+            </TouchableOpacity>
+          )}
+        </View>
+        <View>
+          {currentIndex < questions.length - 1 && (
+            <TouchableOpacity onPress={goToNextQuestion}>
+              <Ionicons name="arrow-forward" size={34} color="#374151" />
+            </TouchableOpacity>
+          )}
+        </View>
         </View>
       </View>
-      
-        <View className='w-full items-center justify-center p-5 h-[70px]'>
-        {!isAnswerChecked ? (
-          <View className='bg-blue-500 flex items-center justify-center rounded-full w-1/2 shadow-xl h-[50px]'>
-            <Button
-              title="Check Answer"
-              color="#ffffff"
-              onPress={handleCheckAnswer}
-            />
-          </View>
-        ) : (
-          <View className='bg-red-400 flex items-center justify-center rounded-full w-1/2 shadow-xl h-[50px]'>
-            <Button
-              title="Reset"
-              color="#ffffff"
-              onPress={resetAnswers}
-            />
-          </View>
-        )}
-        </View>
-      <View className='flex-row justify-between p-5'>
-      <View>
-        {currentIndex > 0 && (
-          <TouchableOpacity onPress={goToPreviousQuestion}>
-            <Ionicons name="arrow-back" size={32} color="#374151" />
-          </TouchableOpacity>
-        )}
-      </View>
-      <View>
-        {currentIndex < questions.length - 1 && (
-          <TouchableOpacity onPress={goToNextQuestion}>
-            <Ionicons name="arrow-forward" size={34} color="#374151" />
-          </TouchableOpacity>
-        )}
-      </View>
-      </View>
-    </View>
+    </ScrollView>
+
   );
 };
 

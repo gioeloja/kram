@@ -20,6 +20,14 @@ const Collection = ({ navigation, route }) => {
   const [data, setData] = useState(route.params.data);
   const collectionIndex  = route.params.collectionIndex;
 
+  const boxContentHeaders = ["Cell Biology", "Genetics"]
+  const boxContentBullets = [
+    ["Basics of cell structure and function.", "Cell division processes: mitosis and meiosis."],
+    ["Heredity and inheritance patterns.", "DNA structure and its role in genetics."],
+  ]
+
+  const relatedTopics = ["Ecology", "Evolution", "Anatomy and Physiology"]
+
   useEffect(() => {
     const currentUser = auth.currentUser
     setUser(currentUser.uid)
@@ -100,11 +108,26 @@ const Collection = ({ navigation, route }) => {
         }}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View  className="flex-1 justify-end items-center bg-opacity-10" >
+          <View className="flex-1 justify-end items-center bg-opacity-10">
             <View className="bg-white w-full h-[80%] p-4 rounded-t-3xl relative">
-              <TouchableOpacity onPress={toggleSummaryModal} className="absolute top-2 p-2 right-2">
-                  <Ionicons name="close-circle" size={36} color="gray" />
-                </TouchableOpacity>
+              <TouchableOpacity onPress={toggleSummaryModal} style={{ position: 'absolute', top: 2, right: 2, padding: 2 }}>
+                <Ionicons name="close-circle" size={36} color="gray" />
+              </TouchableOpacity>
+              <Text className='font-bold text-slate-800 my-2 mb-6 text-[28px]'>Content Overview:</Text>
+              {boxContentHeaders.map((header, headerIndex) => (
+                <View key={headerIndex} style={{ marginBottom: 10 }}>
+                  <Text className='font-bold text-lg'>{header}</Text>
+                  {boxContentBullets[headerIndex].map((bullet, bulletIndex) => (
+                    <Text key={bulletIndex} className='text-md my-1 ml-4'>{'\u2022'} {bullet}</Text>
+                  ))}
+                </View>
+              ))}
+              <Text className='font-bold text-slate-800 my-6 text-[24px]'>Related Topics:</Text>
+              {relatedTopics.map((topic, index) => (
+                <Text key={index} className='font-semibold text-lg'>{'\u2022'} {topic}</Text>
+              ))}
+
+
             </View>
           </View>
         </ScrollView>

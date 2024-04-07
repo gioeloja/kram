@@ -235,17 +235,17 @@ const boxColors = [
                       </View>
                     ))}
                       <View className="absolute bottom-10 items-center h-[60px] justify-center left-0 right-0 flex justify-center shadow-xl">
-                        <TouchableOpacity onPress={() => addTopicToCollections(currentModalIndex)} className='w-2/3' disabled={addingCollection}>
-                          {addingCollection ? (
-                            <View className="bg-slate-600 py-2 items-center h-full justify-center px-4 rounded-full">
-                              <ActivityIndicator size="small" color="white" />
-                            </View>
-                          ) : (
-                            <View className="bg-slate-600 py-2 items-center h-full justify-center px-4 rounded-full">
-                              <Text className="text-white text-xl font-bold">Add to collections</Text>
-                            </View>
-                          )}
-                        </TouchableOpacity>
+                      <TouchableOpacity onPress={() => addTopicToCollections(currentModalIndex)} className='w-2/3' disabled={addingCollection}>
+                        {addingCollection ? (
+                          <View className="bg-slate-600 py-2 items-center h-full justify-center px-4 rounded-full">
+                            <ActivityIndicator size="small" color="white" />
+                          </View>
+                        ) : (
+                          <View className="bg-slate-600 py-2 items-center h-full justify-center px-4 rounded-full">
+                            <Text className="text-white text-xl font-bold">Add to collections</Text>
+                          </View>
+                        )}
+                      </TouchableOpacity>
                       </View>
                     </View>
                   </View>
